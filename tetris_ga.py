@@ -198,6 +198,20 @@ class ga_solver():
 
     def get_highest_rated(self):
 
+        max_rating = -10000000
+        max_move = -1 
+        ties = []
+        for i,move in enumerate(moves):
+
+            if move.rating >max_rating:
+                max_move = i
+                ties = [i]
+            elif move.rating == max_rating:
+                ties.append(i)
+
+        move = moves[ties[0]]
+        move.algorithm.ties = len(ties)
+        return move 
         
 	def get_height(self):
 		

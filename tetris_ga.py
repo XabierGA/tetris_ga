@@ -97,7 +97,7 @@ class ga_solver():
 
 		max_height = np.max(np.count_nonzero(X,axis=0))
 
-		apply_shape()
+		apply_new_shape()
 
 		return max_height
 
@@ -113,14 +113,36 @@ class ga_solver():
 
 	def get_cumulative_height(self):
 
-		remove_new_shape = ()
+		remove_new_shape()
 
-		cumulative_height = np.sum(np.count_nonzero(X,axis = 0))
+		cumulative_height = np.sum(np.count_nonzero(X , axis = 0))
 
 		apply_new_shape()
 
 		return cumulative_height
+
+    def get_holes(self):
+
+        remove_new_shape()
+
+        holes = BOARD_DATA.width*BOARD_DATA.height - np.sum(np.count_nonzero(X , axis = 0))
+
+        apply_new_shape()
 	
+        return holes 
+
+    def get_roughness(self):
+
+        remove_new_shape()
+
+        roughness = np.diff(np.count_nonzero(X , axis = 0)).sum()
+
+        apply_new_shape()
+
+        return roughness 
+
+
+
 
 from tetris_model import BOARD_DATA, Shape
 import math

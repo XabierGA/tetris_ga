@@ -1,6 +1,7 @@
 import numpy as np
 from tetris import BOARD_DATA, Shape
 
+ROTATIONS = 4
 class Genome():
 
 	def __init__(self , ID):
@@ -119,7 +120,44 @@ class ga_solver():
     def get_possible_moves(self):
 
         last_state = get_state()
-        
+        iterations = 0
+        possible_moves = []
+        for rot in range(ROTATIONS):
+
+            for t in range(-5,5):
+                iterations += 1 
+                load_state(last_state)
+                for j in range(rot):
+                    rotate_shape()
+                if t<0:
+                    for k in range(int(np.abs(t))):
+                        move_left()
+                elif t>0:
+                    for k in range(t):
+                        move_right()
+                if moved_:
+
+                    move_down = move_down()
+                    while move_down.moved():
+                        move_down_results = move_down()
+                
+                algo = {"rows_cleared":move_down_results.rows_cleared , "weighted_height":(get_height())**(1.5),"cumulative_height":get_cumulative_height(),"relative_height":get_relative_height() , "holes":get_holes() , "roughness":get_roughness()}
+                rating = 0
+     			rating += algorithm["rows_cleared"] * self.genomes[self.current_genome].rows_cleared
+                rating += algorithm["weighted_height"] * self.genomes[self.current_genome].weighted_height
+                rating += algorithm["cumulative_height"] * self.genomes[self.current_genome].cumulative_height
+                rating += algorithm["relative_height"] * self.genomes[self.current_genome].relative_height
+                rating += algorithm["holes"] * self.genomes[self.current_genome].holes
+                rating += algorithm["roughness"] * self.genomes[self.current_genome].roughness
+                if move_down_results.lose():
+                    rating -= 500
+                
+                possible_moves.append({"rotations":rot , "translations":t , "rating":rating , "algorithm":algo})
+
+        load_state(last_state)
+
+        return possible_moves
+
 
     def next_move(self):
 

@@ -38,6 +38,8 @@ class ga_solver():
 		self.current_genome += 1
 		if (self.current_genome == self.genome_length):
 				evolve()
+        
+
 		
 	def make_child(self, genomes):
 		mum , dad = np.random.choice(genomes , 2)
@@ -91,6 +93,33 @@ class ga_solver():
 		self.genomes = self.children
 
 
+    def update(self):
+
+        if (self.current_genome != -1):
+
+            results = move_down()
+
+            if (!results.moded):
+                
+                if results.lose:
+
+                    self.genomes[current_genome].fitness = self.score
+
+                    evaluate_next_genome()
+
+                else:
+
+                    make_next_move():
+            else:
+
+                move_down()
+
+    def get_possible_moves(self):
+
+
+    def get_highest_rated(self):
+
+        
 	def get_height(self):
 		
 		remove_new_shape()

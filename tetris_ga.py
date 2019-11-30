@@ -102,7 +102,7 @@ class ga_solver():
 
             results = move_down()
 
-            if (!results.moded):
+            if (!results.moved):
                 
                 if results.lose:
 
@@ -195,6 +195,9 @@ class ga_solver():
         output()
         update_score()
 
+    def move_down(self):
+
+        resul
 
     def get_highest_rated(self):
 
@@ -262,6 +265,20 @@ class ga_solver():
         apply_new_shape()
 
         return roughness 
+
+
+class Move(object):
+
+    def __init__(self):
+
+        self.lost = False
+        self.moved = True
+        self.rows_cleared = 0
+    def move_down(self):
+
+        remove_shape()
+        self.current_shape 
+    def move_left(self):
 
 
 

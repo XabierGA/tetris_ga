@@ -1,0 +1,15 @@
+version: '2'
+services:
+  backend:
+    build:
+      dockerfile: "Dockerfile.dev"
+      context: '.'
+  front:
+    build:
+      dockerfile: "Dockerfile.dev"
+      context: "./tetris-master"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "app/node_modules"
+      - "./tetris-master:/app"

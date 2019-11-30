@@ -48,6 +48,7 @@ class ga_solver():
 		child = mutate(child)
 
 		return child 
+
 	def set_random_att(self, child, mum, dad):
 		child.rows_cleared = np.random.choice(mum.rows_cleared , dad.rows_cleared)
 		child.weighted_height = np.random.choice(mum.weighted_height , dad.weighted_height)
@@ -79,6 +80,7 @@ class ga_solver():
 			child.roughness += np.random.rand() * self.mut_rate * 2 - self.mut_rate
 
 		return child
+
 	def evolve(self):
 
 		self.generation += 1
@@ -103,7 +105,7 @@ class ga_solver():
                 
                 if results.lose:
 
-                    self.genomes[current_genome].fitness = self.score
+                    self.genomes[self.current_genome].fitness = self.score
 
                     evaluate_next_genome()
 
@@ -115,6 +117,45 @@ class ga_solver():
                 move_down()
 
     def get_possible_moves(self):
+
+        last_state = get_state()
+        
+
+    def next_move(self):
+
+        self.moves_taken += 1 
+        if (self.moves_taken > self.move_limit):
+            self.genomes[self.current_genome].fitness = self.score
+            evaluate_next_genome()
+
+        else:
+            old_draw = self.old_draw
+            possible_moves = get_possible_moves()
+            last_state = get_state()
+            next_shape()
+
+            next_move = [get_highest_rated(get_all_possible_moves) for x in range(len(possible_moves))]
+
+            possible_moves = [possible_moves[x].rating += next_move.rating for x in range(len(possible_moves))]
+
+            load_state(last_state)
+        
+            move = get_highest_rated(possible_moves)
+
+            for rot in move.rotations:
+                rotate_shape()
+
+            if move.translation<0:
+                for trans in move.translation:
+                    move_left()
+
+            elif move.translation>0:
+                for trans in move.translation:
+                    move_right()
+
+        draw = old_draw
+        output()
+        update_score()
 
 
     def get_highest_rated(self):

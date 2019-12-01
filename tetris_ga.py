@@ -20,11 +20,10 @@ class Genome():
 
 class ga_solver():
 
-	def __init__(self, pop_size , mut_rate):
+	def __init__(self, pop_size , mut_rate:
 		
 		self.pop_size = pop_size
 		self.current_genome = 0
-		self.id_index = 0
 		self.generation = 0
 		self.gen = genome()
 		self.mut_rate = mut_rate
@@ -53,7 +52,7 @@ class ga_solver():
 
 		return child 
 
-	def set_random_att(self, child, mum, dad):
+	def set_random_att(self, child, mum, dad ):
 		child.rows_cleared = np.random.choice(mum.rows_cleared , dad.rows_cleared)
 		child.weighted_height = np.random.choice(mum.weighted_height , dad.weighted_height)
 		child.cumulative_height = np.random.choice(mum.cumulative_height , dad.cumulative_height)

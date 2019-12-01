@@ -15,7 +15,7 @@ class Genome():
 		self.roughness = np.random.rand() - 0.5
 		self.fitness = -1
 		self.moves_taken = 0
-
+    
 
 
 class ga_solver():
@@ -34,11 +34,14 @@ class ga_solver():
 
 		self.genomes = [Genome(self.id_index) for x in range(self.pop_size)]
 
-	def evaluatenextgenome(self):
+	def evaluate_next_genome(self):
 
 		self.current_genome += 1
 		if (self.current_genome == self.genome_length):
 				evolve()
+        load_state(round_state)
+        self.moves_taken = 0
+        next_move()
         
 
 		
@@ -195,10 +198,6 @@ class ga_solver():
         output()
         update_score()
 
-    def move_down(self):
-
-        resul
-
     def get_highest_rated(self):
 
         max_rating = -10000000
@@ -274,6 +273,7 @@ class Move(object):
         self.lost = False
         self.moved = True
         self.rows_cleared = 0
+        self.result = 0
     def move_down(self):
 
         remove_shape()
